@@ -18,13 +18,10 @@
 .site-header .frame{display:flex;align-items:center;justify-content:space-between;gap:var(--space-6);}
 .logo{font-weight:var(--fw-strong);font-size:var(--fs-body-2);display:flex;align-items:baseline;gap:6px;}
 .logo em{font-style:normal;font-weight:var(--fw-base);color:var(--text-subtle);}
-.nav-list{display:flex;align-items:center;gap:var(--space-6);}
-.nav-list a{font-size:var(--fs-body-2);color:var(--text-default);}
 .lang-toggle{display:flex;border:var(--border-1);border-radius:var(--radius-circle);padding:2px;}
 .lang-toggle button{border:0;background:none;font:inherit;font-size:14px;font-weight:var(--fw-strong);
   padding:6px 14px;border-radius:var(--radius-circle);color:var(--text-subtle);cursor:pointer;}
 .lang-toggle button[aria-current="true"]{background:var(--color-primary-900);color:var(--text-default-inverse);}
-@media (max-width:1024px){.nav-list{display:none;}}
 
 /* ---------- buttons ---------- */
 .btn{display:inline-flex;align-items:center;gap:8px;font-weight:var(--fw-strong);font-size:var(--fs-body-2);
@@ -45,16 +42,10 @@
 .hero-kicker{font-size:var(--fs-body-2);color:var(--text-subtle);margin-block-end:var(--space-5);}
 .hero-title{font-size:var(--fs-h1);font-weight:var(--fw-strong);line-height:var(--lh-h1);}
 .hero-brand{margin-block-start:var(--space-6);font-size:var(--fs-body-2);color:var(--text-subtle);}
-.hero-badge{position:absolute;font-size:var(--fs-badge);font-weight:var(--fw-strong);color:var(--text-default-inverse);
-  background:var(--color-primary-900);padding:6px 14px;border-radius:var(--radius-circle);}
-.hero-badge--1{inset-block-start:18%;inset-inline-start:8%;}
-.hero-badge--2{inset-block-end:24%;inset-inline-start:14%;}
-.hero-badge--3{inset-block-end:16%;inset-inline-end:10%;}
 .hero-scroll{position:absolute;inset-block-end:var(--space-7);inset-inline-start:50%;transform:translateX(-50%);
   width:56px;height:56px;border-radius:var(--radius-circle);border:1px solid var(--color-primary-400);
   display:flex;align-items:center;justify-content:center;color:var(--text-default);background:transparent;}
 @media (max-width:768px){
-  .hero-badge{display:none;}
   .hero-title{font-size:var(--fs-h2);}
 }
 
@@ -79,51 +70,54 @@
 .section-head .motif{width:48px;height:48px;flex:none;}
 .section-head h2{font-size:var(--fs-h2);}
 
-/* ---------- philosophy mosaic (exact Figma grid: 4 cols x 8 rows, 330px module) ---------- */
+/* ---------- philosophy timeline (alternating rows + connecting line, per Figma node 10:550) ---------- */
 .philosophy{padding-block:var(--space-11);}
-.philosophy-frame{position:relative;}
-.philosophy-label{position:absolute;inset-block-start:0;inset-inline-start:0;max-width:380px;}
-.mosaic{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:330px;border-inline-start:var(--border-1);border-block-start:var(--border-1);}
-.mosaic > *{border-inline-end:var(--border-1);border-block-end:var(--border-1);position:relative;}
-.tile{padding:32px;display:flex;flex-direction:column;justify-content:flex-end;}
-.tile-number{font-size:var(--fs-h1);font-weight:var(--fw-strong);color:var(--color-primary-300);justify-content:flex-start;}
-.tile-title{justify-content:flex-end;}
-.tile-title h3{font-size:var(--fs-h3);}
-.tile-icon{align-items:flex-start;}
-.tile-icon .motif{width:37px;height:57px;}
-.tile-text{justify-content:flex-end;}
-.tile-text p{color:var(--text-subtle);}
-.tile-text a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;
-  border-radius:var(--radius-circle);border:1px solid var(--color-primary-300);margin-block-start:var(--space-5);}
-.tile-image{padding:0;background:var(--color-placeholder);}
 
-/* mosaic placement — matches Figma node positions 1:1 */
-.mosaic .m-01{grid-column:4/5;grid-row:1/2;}
-.mosaic .m-02{grid-column:4/5;grid-row:2/3;}
-.mosaic .m-03{grid-column:3/5;grid-row:3/4;}
-.mosaic .m-04{grid-column:1/3;grid-row:3/5;}
-.mosaic .m-05{grid-column:1/2;grid-row:5/6;}
-.mosaic .m-06{grid-column:2/3;grid-row:5/6;}
-.mosaic .m-07{grid-column:3/5;grid-row:5/6;}
-.mosaic .m-08{grid-column:2/4;grid-row:6/7;}
-.mosaic .m-09{grid-column:3/4;grid-row:7/8;}
-.mosaic .m-10{grid-column:4/5;grid-row:7/8;}
-.mosaic .m-11{grid-column:3/5;grid-row:8/9;}
-.mosaic .m-12{grid-column:2/3;grid-row:7/9;}
+.timeline{position:relative;display:flex;flex-direction:column;gap:var(--space-12);}
+.timeline-line{position:absolute;inset-block-start:0;inset-block-end:0;inset-inline-start:50%;
+  width:2px;background:var(--color-primary-100);transform:translateX(-1px);z-index:0;}
+.timeline-dot{position:absolute;inset-inline-start:50%;inset-block-start:0;
+  transform:translate(-50%,-50%);width:10px;height:10px;border-radius:var(--radius-circle);
+  background:var(--color-primary-900);transition:top .1s linear;}
+
+.timeline-row{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;
+  gap:var(--space-10);align-items:center;}
+
+.timeline-item{display:flex;gap:var(--space-6);align-items:flex-start;}
+.timeline-num{flex:none;font-size:24px;font-weight:var(--fw-strong);color:var(--color-primary-300);}
+.timeline-icon{width:72px;height:72px;flex:none;}
+/* each item gets its own dot-grid silhouette — same motif texture, different mark */
+.timeline-icon--01{border-radius:50%;}
+.timeline-icon--02{--motif-size:5px;--motif-gap:8px;
+  clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);}
+.timeline-icon--03{--motif-size:7px;--motif-gap:12px;
+  clip-path:polygon(38% 0%,62% 0%,62% 38%,100% 38%,100% 62%,62% 62%,62% 100%,38% 100%,38% 62%,0% 62%,0% 38%,38% 38%);}
+.timeline-copy h3{font-size:24px;font-weight:var(--fw-strong);line-height:1.35;}
+.timeline-copy p{margin-block-start:var(--space-3);font-size:var(--fs-body-2);color:var(--text-subtle);}
+
+.timeline-media{position:relative;overflow:hidden;}
+.timeline-media .img{aspect-ratio:4/3;}
+.timeline-media::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,0) 60%);}
+.timeline-caption{position:absolute;inset-inline-start:var(--space-6);inset-block-end:var(--space-6);
+  font-size:var(--fs-h3);font-weight:var(--fw-strong);color:var(--text-default-inverse);z-index:1;}
 
 @media (max-width:1024px){
-  .philosophy-label{position:static;margin-block-end:var(--space-6);}
-  .mosaic{grid-template-columns:repeat(2,1fr);grid-auto-rows:240px;}
-  .mosaic .m-01,.mosaic .m-02,.mosaic .m-05,.mosaic .m-06,.mosaic .m-09,.mosaic .m-10{grid-column:auto;grid-row:auto;}
-  .mosaic .m-03,.mosaic .m-04,.mosaic .m-07,.mosaic .m-08,.mosaic .m-11{grid-column:1/3;grid-row:auto;}
-  .mosaic .m-04,.mosaic .m-12{grid-row:auto/span 2;}
+  .timeline{gap:var(--space-9);}
+  .timeline-line{display:none;}
+  .timeline-row{grid-template-columns:1fr;gap:var(--space-5);}
+  .timeline-row .timeline-item{order:1;}
+  .timeline-row .timeline-media{order:2;}
 }
 @media (max-width:768px){
-  .mosaic{grid-template-columns:1fr;grid-auto-rows:auto;}
-  .mosaic > *{grid-column:1/2!important;grid-row:auto!important;min-height:220px;}
+  .timeline{gap:var(--space-7);}
+  .timeline-item{gap:var(--space-4);}
+  .timeline-icon{width:56px;height:56px;}
+  .timeline-copy h3{font-size:var(--fs-body-1);}
+  .timeline-caption{font-size:var(--fs-body-1);}
 }
 
-/* ---------- agenda grid (4 x 3, 330px module, 2 blank cells) ---------- */
+/* ---------- agenda grid (4 x 2, 330px module, 8 items) ---------- */
 .agenda-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:330px;
   border-inline-start:var(--border-1);border-block-start:var(--border-1);}
 .agenda-cell{border-inline-end:var(--border-1);border-block-end:var(--border-1);
@@ -131,10 +125,21 @@
   text-align:center;color:inherit;}
 .agenda-cell .motif{width:80px;height:80px;}
 .agenda-cell span{font-size:var(--fs-body-2);font-weight:var(--fw-strong);}
-.agenda-cell--empty{background:var(--color-primary-050);}
 @media (max-width:1024px){.agenda-grid{grid-template-columns:repeat(2,1fr);}}
-@media (max-width:768px){.agenda-grid{grid-template-columns:1fr;}
-  .agenda-cell--empty{display:none;}}
+@media (max-width:768px){.agenda-grid{grid-template-columns:1fr;}}
+
+/* each agenda icon gets its own dot-grid silhouette, matched to its topic —
+   same motif texture as the philosophy timeline, distinct mark per item */
+.agenda-icon--leaf{border-radius:0% 50% 50% 50%;transform:rotate(45deg);}
+.agenda-icon--ring{border-radius:50%;
+  -webkit-mask-image:radial-gradient(circle at 50% 50%,transparent 40%,#000 42%,#000 100%);
+  mask-image:radial-gradient(circle at 50% 50%,transparent 40%,#000 42%,#000 100%);}
+.agenda-icon--diamond{clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);}
+.agenda-icon--chevron{clip-path:polygon(0% 0%,55% 0%,100% 50%,55% 100%,0% 100%,45% 50%);}
+.agenda-icon--hexagon{clip-path:polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%);}
+.agenda-icon--triangle{clip-path:polygon(50% 0%,100% 100%,0% 100%);}
+.agenda-icon--cross{clip-path:polygon(38% 0%,62% 0%,62% 38%,100% 38%,100% 62%,62% 62%,62% 100%,38% 100%,38% 62%,0% 62%,0% 38%,38% 38%);}
+.agenda-icon--shield{clip-path:polygon(50% 0%,100% 15%,100% 55%,50% 100%,0% 55%,0% 15%);}
 
 /* ---------- news ---------- */
 .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--grid-gutter-lg);}

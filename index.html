@@ -11,14 +11,14 @@ button-radius=round
 border=hairline
 button-style=solid+outline
 fw=700/400
-spacing=space-section (mosaic/agenda modules kept at exact Figma 330px grid)
+spacing=space-section (agenda module kept at exact Figma 330px grid)
 -->
 <!--
 Layout Declaration
 Header      — full-bleed (fixed)
 Hero        — full-bleed — centered
 Promo strip — full-bleed — 3-flush
-Philosophy  — default(1440/60px inset) — asymmetric 4x8 mosaic (exact Figma grid)
+Philosophy  — default(1440/60px inset) — alternating timeline rows w/ connecting line
 Agenda      — default(1440/60px inset) — 4-4-4 (2 blank cells)
 News        — default(1440/60px inset) — 3-3-3
 CTA         — full-bleed — split
@@ -40,14 +40,6 @@ Footer      — full-bleed — 7-col
 <header class="site-header">
   <div class="frame">
     <a href="#top" class="logo">cove<em>lifestyle</em></a>
-    <nav class="nav-list" aria-label="주요 메뉴">
-      <a href="#philosophy">브랜드</a>
-      <a href="#philosophy">일상의 감각</a>
-      <a href="#philosophy">신뢰할 수 있는 브랜드</a>
-      <a href="#agenda">지속가능 소재</a>
-      <a href="#agenda">커뮤니티</a>
-      <a href="#news">저널</a>
-    </nav>
     <div class="lang-toggle" role="group" aria-label="언어 선택">
       <button type="button">EN</button>
       <button type="button" aria-current="true">KR</button>
@@ -60,9 +52,6 @@ Footer      — full-bleed — 7-col
   <!-- Hero — full-bleed -->
   <section class="hero">
     <div class="img" style="position:absolute;inset:0;"></div>
-    <span class="hero-badge hero-badge--1">Everyday Craft</span>
-    <span class="hero-badge hero-badge--2">Mindful Living</span>
-    <span class="hero-badge hero-badge--3">Shared Moments</span>
     <div class="frame">
       <div class="hero-copy">
         <p class="hero-kicker">cove lifestyle</p>
@@ -98,41 +87,61 @@ Footer      — full-bleed — 7-col
     </article>
   </section>
 
-  <!-- Philosophy mosaic — default container, exact Figma 4x8 grid -->
+  <!-- Philosophy timeline — default container, alternating rows + connecting line -->
   <section class="philosophy" id="philosophy">
-    <div class="frame philosophy-frame">
-      <div class="philosophy-label section-head">
+    <div class="frame">
+      <div class="section-head">
         <span class="motif" aria-hidden="true"></span>
         <h2>COVE의 라이프스타일 철학</h2>
       </div>
 
-      <div class="mosaic">
-        <div class="tile tile-number m-01"><span>01</span></div>
-        <div class="tile tile-icon tile-title m-02">
-          <span class="motif" aria-hidden="true"></span>
-          <h3>일상의 감각</h3>
+      <div class="timeline">
+        <div class="timeline-line" aria-hidden="true"><span class="timeline-dot"></span></div>
+
+        <div class="timeline-row">
+          <div class="timeline-item">
+            <span class="timeline-num">01</span>
+            <span class="motif timeline-icon timeline-icon--01" aria-hidden="true"></span>
+            <div class="timeline-copy">
+              <h3>일상의 감각</h3>
+              <p>사소한 순간까지 세심히 살피는 감각으로<br>꼭 필요한 물건과 경험을 큐레이션합니다</p>
+            </div>
+          </div>
+          <div class="timeline-media">
+            <div class="img img--4-3"></div>
+            <span class="timeline-caption">일상의 감각</span>
+          </div>
         </div>
-        <a href="#philosophy" class="tile tile-text m-03">
-          <p>COVE는 사람들의 하루를 세심히 관찰해, 꼭 필요한 순간에 알맞은 물건과 경험을 큐레이션합니다. 사용성과 아름다움 사이의 균형을 놓치지 않습니다.</p>
-          <span aria-hidden="true">→</span>
-        </a>
-        <div class="tile tile-image m-04"><div class="img img--1-1" style="height:100%;"></div></div>
 
-        <div class="tile m-05"><span class="motif" aria-hidden="true" style="width:37px;height:57px;"></span></div>
-        <div class="tile tile-title m-06"><h3>함께 만드는 취향</h3></div>
-        <div class="tile tile-image m-07"><div class="img" style="height:100%;"></div></div>
-        <a href="#philosophy" class="tile tile-text m-08">
-          <p>COVE는 로컬 창작자, 브랜드와 협력해 지역 사회가 함께 성장할 수 있는 취향의 생태계를 만들어갑니다.</p>
-          <span aria-hidden="true">→</span>
-        </a>
+        <div class="timeline-row">
+          <div class="timeline-media">
+            <div class="img img--4-3"></div>
+            <span class="timeline-caption">함께 만드는 취향</span>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-num">02</span>
+            <span class="motif timeline-icon timeline-icon--02" aria-hidden="true"></span>
+            <div class="timeline-copy">
+              <h3>함께 만드는 취향</h3>
+              <p>로컬 창작자와 협력해 함께 성장하는<br>취향의 생태계를 만들어갑니다</p>
+            </div>
+          </div>
+        </div>
 
-        <div class="tile m-09"><span class="motif" aria-hidden="true" style="width:37px;height:57px;"></span></div>
-        <div class="tile tile-title m-10"><h3>신뢰할 수 있는 브랜드</h3></div>
-        <a href="#philosophy" class="tile tile-text m-11">
-          <p>COVE는 제품과 서비스 전반의 품질 기준을 체계적으로 관리합니다. 소재부터 배송까지, 투명하고 책임감 있게 만듭니다.</p>
-          <span aria-hidden="true">→</span>
-        </a>
-        <div class="tile tile-image m-12"><div class="img" style="height:100%;"></div></div>
+        <div class="timeline-row">
+          <div class="timeline-item">
+            <span class="timeline-num">03</span>
+            <span class="motif timeline-icon timeline-icon--03" aria-hidden="true"></span>
+            <div class="timeline-copy">
+              <h3>신뢰할 수 있는 브랜드</h3>
+              <p>소재부터 배송까지 투명하고 책임감 있게<br>품질 기준을 체계적으로 관리합니다</p>
+            </div>
+          </div>
+          <div class="timeline-media">
+            <div class="img img--4-3"></div>
+            <span class="timeline-caption">신뢰할 수 있는 브랜드</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -145,20 +154,15 @@ Footer      — full-bleed — 7-col
         <h2>라이프스타일 중점 아젠다</h2>
       </div>
       <div class="agenda-grid">
-        <a href="#agenda" class="agenda-cell"><span class="motif" aria-hidden="true"></span><span>지속가능 소재</span></a>
-        <a href="#agenda" class="agenda-cell"><span class="motif" aria-hidden="true"></span><span>웰빙 · 데일리케어</span></a>
-        <a href="#agenda" class="agenda-cell"><span class="motif" aria-hidden="true"></span><span>감각적 디자인</span></a>
-        <a href="#agenda" class="agenda-cell"><span class="motif" aria-hidden="true"></span><span>고객 경험</span></a>
+        <a href="#agenda" class="agenda-cell"><span class="motif agenda-icon--leaf" aria-hidden="true"></span><span>지속가능 소재</span></a>
+        <a href="#agenda" class="agenda-cell"><span class="motif agenda-icon--ring" aria-hidden="true"></span><span>웰빙 · 데일리케어</span></a>
+        <a href="#agenda" class="agenda-cell"><span class="motif agenda-icon--diamond" aria-hidden="true"></span><span>감각적 디자인</span></a>
+        <a href="#agenda" class="agenda-cell"><span class="motif agenda-icon--chevron" aria-hidden="true"></span><span>고객 경험</span></a>
 
-        <a href="#agenda" class="agenda-cell"><span class="motif" aria-hidden="true"></span><span>로컬 커뮤니티</span></a>
-        <a href="#agenda" class="agenda-cell"><span class="motif" aria-hidden="true"></span><span>넥스트 제너레이션</span></a>
-        <a href="#agenda" class="agenda-cell"><span class="motif" aria-hidden="true"></span><span>라이프 서비스</span></a>
-        <div class="agenda-cell agenda-cell--empty" aria-hidden="true"></div>
-
-        <a href="#agenda" class="agenda-cell"><span class="motif" aria-hidden="true"></span><span>기후 친화 소재</span></a>
-        <a href="#agenda" class="agenda-cell"><span class="motif" aria-hidden="true"></span><span>구성원 가치</span></a>
-        <a href="#agenda" class="agenda-cell"><span class="motif" aria-hidden="true"></span><span>신뢰 경영</span></a>
-        <div class="agenda-cell agenda-cell--empty" aria-hidden="true"></div>
+        <a href="#agenda" class="agenda-cell"><span class="motif agenda-icon--hexagon" aria-hidden="true"></span><span>로컬 커뮤니티</span></a>
+        <a href="#agenda" class="agenda-cell"><span class="motif agenda-icon--triangle" aria-hidden="true"></span><span>넥스트 제너레이션</span></a>
+        <a href="#agenda" class="agenda-cell"><span class="motif agenda-icon--cross" aria-hidden="true"></span><span>구성원 가치</span></a>
+        <a href="#agenda" class="agenda-cell"><span class="motif agenda-icon--shield" aria-hidden="true"></span><span>신뢰 경영</span></a>
       </div>
     </div>
   </section>
@@ -296,5 +300,27 @@ Footer      — full-bleed — 7-col
   </div>
 </footer>
 
+<script>
+(function(){
+  var line = document.querySelector(".timeline-line");
+  var dot = document.querySelector(".timeline-dot");
+  if(!line || !dot) return;
+  var ticking = false;
+  function update(){
+    ticking = false;
+    var rect = line.getBoundingClientRect();
+    var center = window.innerHeight / 2;
+    var progress = (center - rect.top) / rect.height;
+    progress = Math.max(0, Math.min(1, progress));
+    dot.style.top = (progress * 100) + "%";
+  }
+  function onScroll(){
+    if(!ticking){ requestAnimationFrame(update); ticking = true; }
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  window.addEventListener("resize", onScroll);
+  update();
+})();
+</script>
 </body>
 </html>

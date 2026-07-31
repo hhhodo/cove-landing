@@ -47,13 +47,11 @@ html{scroll-behavior:smooth;}
 .news-grid .reveal:nth-child(2){transition-delay:.12s;}
 .news-grid .reveal:nth-child(3){transition-delay:.24s;}
 
-.agenda-grid .reveal:nth-child(2){transition-delay:.06s;}
-.agenda-grid .reveal:nth-child(3){transition-delay:.12s;}
-.agenda-grid .reveal:nth-child(4){transition-delay:.18s;}
-.agenda-grid .reveal:nth-child(5){transition-delay:.24s;}
-.agenda-grid .reveal:nth-child(6){transition-delay:.3s;}
-.agenda-grid .reveal:nth-child(7){transition-delay:.36s;}
-.agenda-grid .reveal:nth-child(8){transition-delay:.42s;}
+/* same per-column rhythm on every row (4n+1..4n+4) instead of one long
+   8-step cascade, so the bottom row echoes the top row's timing exactly */
+.agenda-grid .reveal:nth-child(4n+2){transition-delay:.06s;}
+.agenda-grid .reveal:nth-child(4n+3){transition-delay:.12s;}
+.agenda-grid .reveal:nth-child(4n+4){transition-delay:.18s;}
 
 /* ---------- motif (generic dot-grid mark, not a copied icon) ---------- */
 .motif{--motif-size:6px;--motif-gap:10px;background-image:radial-gradient(currentColor calc(var(--motif-size)/2), transparent calc(var(--motif-size)/2));

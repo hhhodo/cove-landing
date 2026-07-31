@@ -232,14 +232,51 @@ Footer      — full-bleed — legal only
   var line = document.querySelector(".timeline-line");
   var dot = document.querySelector(".timeline-dot");
   var fill = document.querySelector(".timeline-fill");
-  if(!line || !dot || !fill) return;
+  var rows = document.querySelectorAll(".timeline-row");
+  if(!line || !dot || !fill || !rows.length) return;
+
+  // Rows aren't the same height (alternating text/image, different copy
+  // length), so a plain (scroll / line.height) ratio fills unevenly —
+  // the top segment and bottom segment visibly race at different speeds.
+  // Instead, treat each row's own vertical center as an anchor and give
+  // every row-to-row segment an equal share of progress, scaled only by
+  // that segment's own span. SPEED > 1 also finishes the fill a bit
+  // before the last row is fully centered, so the black reads as quicker.
+  var SPEED = 1.4;
   var ticking = false;
+
   function update(){
     ticking = false;
-    var rect = line.getBoundingClientRect();
+    var lineRect = line.getBoundingClientRect();
     var center = window.innerHeight / 2;
-    var progress = (center - rect.top) / rect.height;
-    progress = Math.max(0, Math.min(1, progress));
+    var segments = rows.length - 1;
+    var progress = 0;
+
+    if(segments <= 0){
+      progress = center > lineRect.top ? 1 : 0;
+    } else {
+      var anchors = [];
+      for(var i = 0; i < rows.length; i++){
+        var r = rows[i].getBoundingClientRect();
+        anchors.push((r.top + r.height / 2) - lineRect.top);
+      }
+      var curY = center - lineRect.top;
+      if(curY <= anchors[0]){
+        progress = 0;
+      } else if(curY >= anchors[segments]){
+        progress = 1;
+      } else {
+        for(var s = 0; s < segments; s++){
+          if(curY >= anchors[s] && curY <= anchors[s + 1]){
+            var span = Math.max(1, anchors[s + 1] - anchors[s]);
+            progress = (s + (curY - anchors[s]) / span) / segments;
+            break;
+          }
+        }
+      }
+    }
+
+    progress = Math.max(0, Math.min(1, progress * SPEED));
     dot.style.top = (progress * 100) + "%";
     fill.style.height = (progress * 100) + "%";
   }

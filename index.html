@@ -235,14 +235,13 @@ Footer      — full-bleed — legal only
   // Anchor to the first and last row's own centers (not the outer line
   // box, which has extra slack above/below) so the fill only runs across
   // the actual content span, then map that span to progress with a
-  // single linear ratio. A per-row-segment version was tried, but giving
-  // each row-to-row gap an equal progress share while their pixel spans
-  // differ produces a slope change at every anchor — the line visibly
-  // lurches faster/slower right as it passes each row. One constant
-  // slope keeps the motion even from top to bottom. SPEED > 1 finishes
-  // the fill a bit before the last row is fully centered, so it still
-  // reads as quick, without any mid-scroll jump.
-  var SPEED = 1.15;
+  // single linear ratio — one constant slope, so nothing speeds up or
+  // slows down mid-scroll. A SPEED>1 multiplier was tried to finish the
+  // fill early, but that made it cap out (then go dead flat) before the
+  // last row was actually centered — a premature, abrupt stop that read
+  // as rushed. Reaching 100% exactly when the last row centers, with no
+  // added multiplier, is already quicker than the old full-container
+  // version since the dead margin above/below the rows is trimmed off.
   var ticking = false;
 
   function update(){
@@ -257,7 +256,7 @@ Footer      — full-bleed — legal only
     var curY = center - lineRect.top;
 
     var progress = (curY - start) / span;
-    progress = Math.max(0, Math.min(1, progress * SPEED));
+    progress = Math.max(0, Math.min(1, progress));
     dot.style.top = (progress * 100) + "%";
     fill.style.height = (progress * 100) + "%";
   }

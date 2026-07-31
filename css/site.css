@@ -185,7 +185,7 @@ html{scroll-behavior:smooth;}
 @media (max-width:1024px){.news-grid{grid-template-columns:1fr;}}
 
 /* ---------- cta banner ---------- */
-.cta-banner{background:var(--color-primary-900);color:var(--text-default-inverse);margin-block-start:var(--space-9);}
+.cta-banner{background:var(--color-primary-900);color:var(--text-default-inverse);margin-block-start:var(--space-12);}
 .cta-banner .frame{display:flex;align-items:center;justify-content:space-between;gap:var(--space-7);padding-block:var(--space-10);}
 .cta-banner h2{font-size:var(--fs-h2);}
 .cta-banner p{margin-block-start:var(--space-4);color:var(--text-subtle-inverse);}

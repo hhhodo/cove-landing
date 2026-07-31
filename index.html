@@ -232,47 +232,31 @@ Footer      — full-bleed — legal only
   var rows = document.querySelectorAll(".timeline-row");
   if(!line || !dot || !fill || !rows.length) return;
 
-  // Rows aren't the same height (alternating text/image, different copy
-  // length), so a plain (scroll / line.height) ratio fills unevenly —
-  // the top segment and bottom segment visibly race at different speeds.
-  // Instead, treat each row's own vertical center as an anchor and give
-  // every row-to-row segment an equal share of progress, scaled only by
-  // that segment's own span. SPEED > 1 also finishes the fill a bit
-  // before the last row is fully centered, so the black reads as quicker.
-  var SPEED = 1.4;
+  // Anchor to the first and last row's own centers (not the outer line
+  // box, which has extra slack above/below) so the fill only runs across
+  // the actual content span, then map that span to progress with a
+  // single linear ratio. A per-row-segment version was tried, but giving
+  // each row-to-row gap an equal progress share while their pixel spans
+  // differ produces a slope change at every anchor — the line visibly
+  // lurches faster/slower right as it passes each row. One constant
+  // slope keeps the motion even from top to bottom. SPEED > 1 finishes
+  // the fill a bit before the last row is fully centered, so it still
+  // reads as quick, without any mid-scroll jump.
+  var SPEED = 1.15;
   var ticking = false;
 
   function update(){
     ticking = false;
     var lineRect = line.getBoundingClientRect();
     var center = window.innerHeight / 2;
-    var segments = rows.length - 1;
-    var progress = 0;
+    var first = rows[0].getBoundingClientRect();
+    var last = rows[rows.length - 1].getBoundingClientRect();
+    var start = (first.top + first.height / 2) - lineRect.top;
+    var end = (last.top + last.height / 2) - lineRect.top;
+    var span = Math.max(1, end - start);
+    var curY = center - lineRect.top;
 
-    if(segments <= 0){
-      progress = center > lineRect.top ? 1 : 0;
-    } else {
-      var anchors = [];
-      for(var i = 0; i < rows.length; i++){
-        var r = rows[i].getBoundingClientRect();
-        anchors.push((r.top + r.height / 2) - lineRect.top);
-      }
-      var curY = center - lineRect.top;
-      if(curY <= anchors[0]){
-        progress = 0;
-      } else if(curY >= anchors[segments]){
-        progress = 1;
-      } else {
-        for(var s = 0; s < segments; s++){
-          if(curY >= anchors[s] && curY <= anchors[s + 1]){
-            var span = Math.max(1, anchors[s + 1] - anchors[s]);
-            progress = (s + (curY - anchors[s]) / span) / segments;
-            break;
-          }
-        }
-      }
-    }
-
+    var progress = (curY - start) / span;
     progress = Math.max(0, Math.min(1, progress * SPEED));
     dot.style.top = (progress * 100) + "%";
     fill.style.height = (progress * 100) + "%";
